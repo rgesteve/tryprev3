@@ -10,13 +10,24 @@ using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers.FastTree;
 
-#if false
-/root/.nuget/packages/microsoft.ml.onedal/0.21.0-dev.22619.1/runtimes/linux-x64/native/
+#if NETFRAMEWORK
+Console.WriteLine($"Not the right TFM, bailing!");
+Environment.Exit(1);
+#else
+var currentDir = AppContext.BaseDirectory;
+var nativeLibs = Path.Join(currentDir, "runtimes", "win-x64", "native");
+
+Console.WriteLine($"Hello, World from {nativeLibs}!");
+Console.WriteLine($"Which exists: {Directory.Exists(nativeLibs)}!");
+
+Console.WriteLine($"Trying to set the variables:");
+var originalPath = Environment.GetEnvironmentVariable("PATH");
+Environment.SetEnvironmentVariable("PATH", nativeLibs + ";" + originalPath);
+Console.WriteLine($"the directory is: {Directory.Exists(nativeLibs)}!");
 #endif
 
-Console.WriteLine("Hello, World!");
-
-var dataRoot = @"/data/projects/machinelearning/test/data";
+//var dataRoot = @"/data/projects/machinelearning/test/data";
+var dataRoot = @"c:\users\rgesteve\projects\machinelearning\test\data";
 
 Environment.SetEnvironmentVariable("MLNET_BACKEND", "ONEDAL");
 
