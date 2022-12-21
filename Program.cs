@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,19 +12,20 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Trainers.FastTree;
 
 #if NETFRAMEWORK
+// AppContext not available in the framework, user needs to set PATH manually
 Console.WriteLine($"Not the right TFM, bailing!");
 Environment.Exit(1);
+
 #else
-var currentDir = AppContext.BaseDirectory;
-var nativeLibs = Path.Join(currentDir, "runtimes", "win-x64", "native");
 
-Console.WriteLine($"Hello, World from {nativeLibs}!");
-Console.WriteLine($"Which exists: {Directory.Exists(nativeLibs)}!");
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+  var currentDir = AppContext.BaseDirectory;
+  var nativeLibs = Path.Join(currentDir, "runtimes", "win-x64", "native");
 
-Console.WriteLine($"Trying to set the variables:");
-var originalPath = Environment.GetEnvironmentVariable("PATH");
-Environment.SetEnvironmentVariable("PATH", nativeLibs + ";" + originalPath);
-Console.WriteLine($"the directory is: {Directory.Exists(nativeLibs)}!");
+  var originalPath = Environment.GetEnvironmentVariable("PATH");
+  Environment.SetEnvironmentVariable("PATH", nativeLibs + ";" + originalPath);
+}
 #endif
 
 //var dataRoot = @"/data/projects/machinelearning/test/data";
