@@ -11,25 +11,7 @@ using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers.FastTree;
 
-#if NETFRAMEWORK
-// AppContext not available in the framework, user needs to set PATH manually
-Console.WriteLine($"Not the right TFM, bailing!");
-Environment.Exit(1);
-
-#else
-
-if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-{
-  var currentDir = AppContext.BaseDirectory;
-  var nativeLibs = Path.Join(currentDir, "runtimes", "win-x64", "native");
-
-  var originalPath = Environment.GetEnvironmentVariable("PATH");
-  Environment.SetEnvironmentVariable("PATH", nativeLibs + ";" + originalPath);
-}
-#endif
-
-//var dataRoot = @"/data/projects/machinelearning/test/data";
-var dataRoot = @"c:\users\rgesteve\projects\machinelearning\test\data";
+var dataRoot = @"/data/projects/machinelearning/test/data";
 
 Environment.SetEnvironmentVariable("MLNET_BACKEND", "ONEDAL");
 

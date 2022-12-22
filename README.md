@@ -8,6 +8,8 @@ The [oneDAL library](https://www.intel.com/content/www/us/en/develop/documentati
 
 To run this sample, you'll also need [.NET 7.0.](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 
+Furthermore, this sample relies on datasets included in the ML.NET repo codebase (specifically on `test/data`).  To run in your local machine, you'll need to clone that repo and modify the "dataRoot" variable to point to where you have accordingly.
+
 With this, trying this out should be as simple as
 ```bash
 dotnet run
