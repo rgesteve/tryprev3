@@ -10,6 +10,8 @@ VENV_NAME=".venv"
 $PYTHON_EXE -m venv $VENV_NAME
 source $VENV_NAME/bin/activate
 $PYTHON_EXE -m pip install -r requirements.txt
+export LD_LIBRARY_PATH=$HOME/.nuget/packages/microsoft.ml.onedal/0.21.0-dev.22619.1/runtimes/linux-x64/native
+export PATH=$HOME/dnet:$PATH
 $PYTHON_EXE run_bench.py
 deactivate
 
