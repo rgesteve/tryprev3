@@ -6,7 +6,7 @@ This is a very simple standalone console app exercising the [oneDAL extensions t
 
 The [oneDAL library](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-data-analytics-library-onedal.html) takes advantage of features on modern CPU processors, specifically Intel-x64 variants, so you'll need one of those.
 
-To run this sample, you'll also need [.NET 7.0.](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
+To run this sample, you'll also need [.NET 7.0.](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
 Furthermore, this sample relies on datasets included in the ML.NET repo codebase (specifically on `test/data`).  To run in your local machine, you'll need to clone that repo and modify the "dataRoot" variable to point to where you have accordingly.
 
