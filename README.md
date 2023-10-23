@@ -6,7 +6,7 @@ This is a very simple standalone console app exercising the [oneDAL extensions t
 
 The [oneDAL library](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-data-analytics-library-onedal.html) takes advantage of features on modern CPU processors, specifically Intel-x64 variants, so you'll need one of those.
 
-To run this sample, you'll also need [.NET 7.0.](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+To run this sample, you'll also need [.NET 8.0.](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
 Furthermore, this sample relies on datasets included in the ML.NET repo codebase (specifically on `test/data`).  To run in your local machine, you'll need to clone that repo and modify the "dataRoot" variable to point to where you have accordingly.
 
@@ -19,6 +19,21 @@ In some instances, you may see an error loading a library.  In that
 case, please take a look at the script `run.sh`, that sets the
 `LD_LIBRARY_PATH` environment variable on Linux (on Windows you may
 want to do the same with `PATH`)
+
+# Running on Azure
+
+The "bicep" file included provisions an IceLake machine on Azure running Linux, which you can access using the credentials you specify:
+
+```
+RGNAME=<some resource group name>
+az group create --name $RGNAME --location 'westus2'
+az deployment group create --resource-group $RGNAME --template-file infra.bicep --parameters vmname=<vmname> vmuser=<username> vmpass=<password>
+az deployment group show -g $RGNAME -n infra --query properties.outputs.sshCommand
+```
+
+Warning: for the moment using literal password, ssh key authentication disabled.  Password should comply with regular Azure VM requirements (min 6 characters, mixture of upper- and lower-case, numbers and symbols)
+
+Note that you may want to use a more useful name than the name of the template for the deployment, for easier management.
 
 ## Issues and feedback
 
