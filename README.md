@@ -8,8 +8,6 @@ The [oneDAL library](https://www.intel.com/content/www/us/en/develop/documentati
 
 To run this sample, you'll also need [.NET 8.0.](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 
-Furthermore, this sample relies on datasets included in the ML.NET repo codebase (specifically on `test/data`).  To run in your local machine, you'll need to clone that repo and modify the "dataRoot" variable to point to where you have accordingly.
-
 With this, trying this out should be as simple as
 ```bash
 dotnet run
@@ -34,6 +32,12 @@ az deployment group show -g $RGNAME -n infra --query properties.outputs.sshComma
 Warning: for the moment using literal password, ssh key authentication disabled.  Password should comply with regular Azure VM requirements (min 6 characters, mixture of upper- and lower-case, numbers and symbols)
 
 Note that you may want to use a more useful name than the name of the template for the deployment, for easier management.
+
+Log on to the VM using the credentials you provided at instantiation, and just issue
+```
+run.sh
+```
+after cloning this repo on the VM.
 
 ## Issues and feedback
 
