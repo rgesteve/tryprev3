@@ -132,6 +132,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
       //     ]
       //   }
       // }
+      customData: base64(loadTextContent('cloud-init.yaml'))
     }
     networkProfile: {
       networkInterfaces: [
