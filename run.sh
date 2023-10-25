@@ -2,7 +2,7 @@
 
 # apt install python3-venv
 
-DOTNET_EXE=$HOME/dnet/dotnet
+DOTNET_EXE=/run/dotnet/v8/dotnet
 PYTHON_EXE=python3
 
 VENV_NAME=".venv"
