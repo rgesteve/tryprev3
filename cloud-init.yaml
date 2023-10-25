@@ -1,0 +1,12 @@
+#cloud-config
+package_update: true
+
+packages:
+  - git
+  - python3-pip
+
+runcmd:
+  - mkdir /run/dotnet
+  - [ wget, "http://dot.net/v1/dotnet-install.sh", -O, /run/dotnet/dotnet-install.sh ]
+  - [ chmod, "a+x", /run/dotnet/dotnet-install.sh ]
+  - [ /run/dotnet/dotnet-install.sh, "-InstallDir", /run/dotnet/v8, "-Channel", "8.0" ]
