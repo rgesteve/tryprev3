@@ -11,7 +11,9 @@
     <PackageReference Include="Microsoft.ML" Version="3.0.0-preview.22621.2" />
     <PackageReference Include="Microsoft.ML.FastTree" Version="3.0.0-preview.22621.2" />
     <PackageReference Include="Microsoft.ML.OneDal" Version="0.21.0-preview.22621.2" />
-    <PackageReference Include="Microsoft.ML.Mkl.Components" Version="0.21.0-preview.22621.2" />
+    <!-- <PackageReference Include="Microsoft.ML.Mkl.Components" Version="0.21.0-preview.22621.2" /> -->
+    <!-- <PackageReference Include="Microsoft.ML.Mkl.Components" Version="3.0.0-preview.23511.1" /> -->
+    <PackageReference Include="Microsoft.ML.Mkl.Components" Version="3.0.0-preview.22621.2" />
   </ItemGroup>
 
 </Project>

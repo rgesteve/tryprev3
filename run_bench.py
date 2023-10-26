@@ -62,32 +62,31 @@ def run_case(n_samples, n_features, n_trees, n_leaves, n_runs, task_type):
 
         print('DEFAULT STDOUT:', default_stdout, 'DEFAULT STDERR:', default_stderr, sep='\n')
 
-        # default_res = io.StringIO(default_stdout + '\n')
-        # default_res = pd.DataFrame(case_dict).merge(pd.read_csv(default_res))
+        default_res = io.StringIO(default_stdout + '\n')
+        default_res = pd.DataFrame(case_dict).merge(pd.read_csv(default_res))
 
         env_copy['MLNET_BACKEND'] = 'ONEDAL'
         optimized_stdout, optimized_stderr = read_output_from_command(f'dotnet run {train_filename} {test_filename} {task_type} RandomForest {n_trees} {n_leaves}', env_copy)
 
         print('OPTIMIZED STDOUT:', optimized_stdout, 'OPTIMIZED STDERR:', optimized_stderr, sep='\n')
 
-    #     optimized_res = io.StringIO(optimized_stdout + '\n')
-    #     optimized_res = pd.read_csv(optimized_res)
+        optimized_res = io.StringIO(optimized_stdout + '\n')
+        optimized_res = pd.read_csv(optimized_res)
 
-    #     default_res = default_res.rename(columns={k: v.format('ML.NET') for k, v in metrics_map_template.items()})
-    #     optimized_res = optimized_res.rename(columns={k: v.format('oneDAL') for k, v in metrics_map_template.items()})
+        default_res = default_res.rename(columns={k: v.format('ML.NET') for k, v in metrics_map_template.items()})
+        optimized_res = optimized_res.rename(columns={k: v.format('oneDAL') for k, v in metrics_map_template.items()})
 
-    #     if result is None:
-    #         result = default_res.merge(optimized_res)
-    #     else:
-    #         result = pd.concat([result, default_res.merge(optimized_res)], axis=0)
+        if result is None:
+             result = default_res.merge(optimized_res)
+        else:
+             result = pd.concat([result, default_res.merge(optimized_res)], axis=0)
 
-    # all_columns = list(result.columns)
-    # groupby_columns = list(case_dict.keys())
-    # metric_columns = list(result.columns)
-    # for column in groupby_columns:
-    #     metric_columns.remove(column)
-    # result = result.groupby(groupby_columns)[metric_columns].mean().reset_index()
-
+    all_columns = list(result.columns)
+    groupby_columns = list(case_dict.keys())
+    metric_columns = list(result.columns)
+    for column in groupby_columns:
+      metric_columns.remove(column)
+    result = result.groupby(groupby_columns)[metric_columns].mean().reset_index()
     return result
 
 n_samples_range = [5000, 10000]
@@ -109,11 +108,11 @@ for task_type in ['binary', 'regression']:
                 for n_leaves in n_leaves_range:
                     print(f"Should be running with {n_samples} {n_features} {n_trees} {n_leaves} {n_runs} {task_type}")
                     new_result = run_case(n_samples, n_features, n_trees, n_leaves, n_runs, task_type=task_type)
-                    # if result is None:
-                    #     result = new_result
-                    # else:
-                    #     result = pd.concat([result, new_result], axis=0)
+                    if result is None:
+                      result = new_result
+                    else:
+                      result = pd.concat([result, new_result], axis=0)
 
-# result.to_csv('result.csv', index=False)
-# result.to_csv(sys.stdout, index=False)
+result.to_csv('result.csv', index=False)
+result.to_csv(sys.stdout, index=False)
 print("Should have run benchmark!")
