@@ -90,12 +90,11 @@ def run_case(n_samples, n_features, n_trees, n_leaves, n_runs, task_type):
     return result
 
 n_samples_range = [5000, 10000]
-#n_features_range = [8, 64]
-n_features_range = [8]
+n_features_range = [8,16]
 n_trees_range = [100]
 n_leaves_range = [128]
-#n_runs = 5
-n_runs = 1
+n_runs = 5
+#n_runs = 1
 
 print(f"The value of PATH is {os.environ['PATH']}.")
 print(f"The value of LD_LIBRARY_PATH is {os.environ['LD_LIBRARY_PATH']}.")
