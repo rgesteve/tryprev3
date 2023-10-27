@@ -100,6 +100,9 @@ n_runs = 1
 print(f"The value of PATH is {os.environ['PATH']}.")
 print(f"The value of LD_LIBRARY_PATH is {os.environ['LD_LIBRARY_PATH']}.")
 
+print(f"Building...")
+default_stdout, default_stderr = read_output_from_command(f'dotnet build', os.environ.copy())
+
 result = None
 for task_type in ['binary', 'regression']:
     for n_samples in n_samples_range:
