@@ -33,8 +33,9 @@ Warning: for the moment using literal password, ssh key authentication disabled.
 
 Note that you may want to use a more useful name than the name of the template for the deployment, for easier management.
 
-Log on to the VM using the credentials you provided at instantiation, and just issue
+Log on to the VM using the credentials you provided at instantiation, clone this repo and then issue
 ```
+git clone --depth=1 https://github.com/rgesteve/tryprev3.git
 run.sh
 ```
 after cloning this repo on the VM.
