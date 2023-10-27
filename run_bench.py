@@ -114,5 +114,12 @@ for task_type in ['binary', 'regression']:
                       result = pd.concat([result, new_result], axis=0)
 
 result.to_csv('result.csv', index=False)
+
+print("----------------------")
 result.to_csv(sys.stdout, index=False)
+#print(result.columns)
+result['acceleration'] = result['ML.NET all workflow time[ms]'] / result['oneDAL all workflow time[ms]']
+print(result[['algorithm', 'n samples', 'n features', 'n trees', 'n leaves', 'acceleration']])
+print("----------------------")
+
 print("Should have run benchmark!")
