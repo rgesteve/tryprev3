@@ -25,15 +25,24 @@ The "bicep" file included provisions an IceLake machine on Azure running Linux, 
 ```
 RGNAME=<some resource group name>
 az group create --name $RGNAME --location 'westus2'
-az deployment group create --resource-group $RGNAME --template-file infra.bicep --parameters vmname=<vmname> vmuser=<username> vmpass=<password>
+```
+
+To use a fresh ssh key, the following method works:
+
+```
+ssh-keygen <ssh options> -C "<username>@azure" -f <keypair>
+az deployment group create --resource-group $RGNAME --template-file infra.bicep --parameters vmname=<vmname> vmuser=<username> publickey="$(< <keypair>.pub)"
 az deployment group show -g $RGNAME -n infra --query properties.outputs.sshCommand
 ```
 
-Warning: for the moment using literal password, ssh key authentication disabled.  Password should comply with regular Azure VM requirements (min 6 characters, mixture of upper- and lower-case, numbers and symbols)
-
 Note that you may want to use a more useful name than the name of the template for the deployment, for easier management.
 
-Log on to the VM using the credentials you provided at instantiation, clone this repo and then issue
+Log on to the VM using the credentials you provided at instantiation:
+```
+ssh -i <keypair>  <username>@<output_of_show>
+```
+
+Clone this repo and then issue
 ```
 git clone --depth=1 https://github.com/rgesteve/tryprev3.git
 run.sh

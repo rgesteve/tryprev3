@@ -1,13 +1,13 @@
 @description('The name of you Virtual Machine.')
 param vmname    string
 param vmuser    string
-@secure()
-param vmpass    string
+// @secure()
+// param vmpass    string
 @description('Unique DNS Name for the Public IP used to access the Virtual Machine.')
 param dnsLabelPrefix string = toLower('${vmname}-${uniqueString(resourceGroup().id)}')
-//@description('SSH Key for the Virtual Machine.')
-//@secure()
-//param publickey string
+@description('SSH Key for the Virtual Machine.')
+@secure()
+param publickey string
 
 // This issues a warning
 var location = resourceGroup().location
@@ -119,19 +119,19 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-12-01' = {
     osProfile: {
       computerName : vmname
       adminUsername: vmuser
-      adminPassword: vmpass
+      //adminPassword: vmpass
       // TODO: Re-enable SSH authentication
-      // linuxConfiguration: {
-      //   // disablePasswordAuthentication: true
-      //   ssh: {
-      //     publicKeys: [
-      //       {
-      //         path: '/home/${vmuser}/.ssh/authorized_keys'
-      //         keyData: publickey
-      //       }
-      //     ]
-      //   }
-      // }
+      linuxConfiguration: {
+        // disablePasswordAuthentication: true
+        ssh: {
+          publicKeys: [
+            {
+              path: '/home/${vmuser}/.ssh/authorized_keys'
+              keyData: publickey
+            }
+          ]
+        }
+      }
       customData: base64(loadTextContent('cloud-init.yaml'))
     }
     networkProfile: {
